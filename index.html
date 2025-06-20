@@ -26,7 +26,10 @@
       const resposta = await fetch("https://dinastia-n8n-webhook.wuqbfk.easypanel.host/webhook/79d68e4b-0319-4d2c-a960-1ce575f76dc9", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chatInput: comando })
+        body: JSON.stringify({
+          chatInput: comando,
+          sessionId: "secretaria-1"
+        })
       });
 
       const resultado = await resposta.json();
