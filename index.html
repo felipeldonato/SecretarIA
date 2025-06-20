@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>SecretarIA - Cadastro de Paciente</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: 50px auto; }
+    input, button { width: 100%; padding: 12px; font-size: 16px; margin-top: 10px; }
+    #resposta { margin-top: 20px; background: #f4f4f4; padding: 15px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+
+  <h1>SecretarIA 🦷</h1>
+  <p>Digite o comando de cadastro do paciente:</p>
+
+  <input id="comando" placeholder="Ex: Cadastrar paciente João Silva, nascido em 10/01/1980, CPF..." />
+  <button onclick="enviarPrompt()">Enviar</button>
+
+  <div id="resposta"></div>
+
+  <script>
+    async function enviarPrompt() {
+      const comando = document.getElementById("comando").value;
+
+      const resposta = await fetch("https://SEU_WEBHOOK_DO_N8N.webhook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chatInput: comando })
+      });
+
+      const resultado = await resposta.json();
+      document.getElementById("resposta").innerText = JSON.stringify(resultado, null, 2);
+    }
+  </script>
+
+</body>
+</html>
