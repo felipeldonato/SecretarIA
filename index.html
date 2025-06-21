@@ -5,7 +5,20 @@
   <title>SecretarIA - Cadastro de Paciente</title>
   <style>
     body { font-family: Arial; max-width: 600px; margin: 50px auto; }
-    input, button { width: 100%; padding: 12px; font-size: 16px; margin-top: 10px; }
+    input, button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  display: block;
+}
+
+button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
     #resposta {
   display: none; /* <-- aqui está o segredo */
   margin-top: 20px;
