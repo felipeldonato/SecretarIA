@@ -33,7 +33,7 @@
       });
 
       const resultado = await resposta.json();
-      document.getElementById("resposta").innerText = JSON.stringify(resultado, null, 2);
+      document.getElementById("resposta").innerText = resultado.mensagem;
     }
   </script>
 
