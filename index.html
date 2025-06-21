@@ -6,7 +6,16 @@
   <style>
     body { font-family: Arial; max-width: 600px; margin: 50px auto; }
     input, button { width: 100%; padding: 12px; font-size: 16px; margin-top: 10px; }
-    #resposta { margin-top: 20px; background: #f4f4f4; padding: 15px; border-radius: 6px; }
+    #resposta {
+  margin-top: 20px;
+  background: #e6ffee;
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 6px solid #28a745;
+  font-size: 16px;
+  font-weight: bold;
+  color: #155724;
+}
   </style>
 </head>
 <body>
@@ -33,7 +42,7 @@
       });
 
       const resultado = await resposta.json();
-      document.getElementById("resposta").innerText = resultado.mensagem;
+      document.getElementById("resposta").innerHTML = `✅ <b style="color: green;">${resultado.mensagem}</b>`;
     }
   </script>
 
