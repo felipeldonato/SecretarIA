@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <title>SecretarIA - Cadastro de Paciente</title>
   <style>
-    body { font-family: Arial; max-width: 600px; margin: 50px auto; }
+    body { font-family: Arial; max-width: 600px; margin: 50px auto; text-align: center; }
     input, button { width: 100%; padding: 12px; font-size: 16px; margin-top: 10px; }
-    #resposta { margin-top: 20px; background: #f4f4f4; padding: 15px; border-radius: 6px; }
+    #resposta { margin-top: 20px; background: #f4f4f4; padding: 15px; border-radius: 6px; font-size: 16px; white-space: pre-wrap; text-align: left; }
+    .success { color: #28a745; font-weight: bold; font-size: 18px; margin-top: 20px; }
+    .error { color: red; font-weight: bold; font-size: 18px; margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -18,22 +20,47 @@
   <button onclick="enviarPrompt()">Enviar</button>
 
   <div id="resposta"></div>
+  <div id="status"></div>
 
   <script>
     async function enviarPrompt() {
       const comando = document.getElementById("comando").value;
+      const statusDiv = document.getElementById("status");
+      const respostaDiv = document.getElementById("resposta");
 
-      const resposta = await fetch("https://dinastia-n8n-webhook.wuqbfk.easypanel.host/webhook/79d68e4b-0319-4d2c-a960-1ce575f76dc9", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chatInput: comando,
-          sessionId: "secretaria-1"
-        })
-      });
+      // Limpa status e resposta anteriores
+      statusDiv.textContent = "Enviando...";
+      statusDiv.className = "";
 
-      const resultado = await resposta.json();
-      document.getElementById("resposta").innerText = JSON.stringify(resultado, null, 2);
+      try {
+        const resposta = await fetch("https://dinastia-n8n-webhook.wuqbfk.easypanel.host/webhook/79d68e4b-0319-4d2c-a960-1ce575f76dc9", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chatInput: comando,
+            sessionId: "secretaria-1"
+          })
+        });
+
+        const resultado = await resposta.json();
+
+        // Exibe o JSON da resposta bruta
+        respostaDiv.textContent = JSON.stringify(resultado, null, 2);
+
+        // Verifica se o cadastro foi iniciado
+        if (resultado.message && resultado.message.toLowerCase().includes("workflow was started")) {
+          statusDiv.textContent = "✅ Paciente cadastrado com sucesso!";
+          statusDiv.className = "success";
+        } else {
+          statusDiv.textContent = "⚠️ Algo deu errado no cadastro.";
+          statusDiv.className = "error";
+        }
+
+      } catch (erro) {
+        statusDiv.textContent = "❌ Erro de conexão com o servidor.";
+        statusDiv.className = "error";
+        respostaDiv.textContent = "";
+      }
     }
   </script>
 
