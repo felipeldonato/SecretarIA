@@ -7,6 +7,7 @@
     body { font-family: Arial; max-width: 600px; margin: 50px auto; }
     input, button { width: 100%; padding: 12px; font-size: 16px; margin-top: 10px; }
     #resposta {
+  display: none; /* <-- aqui está o segredo */
   margin-top: 20px;
   background: #e6ffee;
   padding: 15px;
@@ -42,7 +43,9 @@
       });
 
       const resultado = await resposta.json();
-      document.getElementById("resposta").innerHTML = `✅ <b style="color: green;">${resultado.mensagem}</b>`;
+      const respostaDiv = document.getElementById("resposta");
+respostaDiv.style.display = "block";
+respostaDiv.innerHTML = `✅ <b style="color: green;">${resultado.mensagem}</b>`;
     }
   </script>
 
