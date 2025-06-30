@@ -46,7 +46,7 @@ button {
     async function enviarPrompt() {
       const comando = document.getElementById("comando").value;
 
-      const resposta = await fetch("https://dinastia-n8n-webhook.wuqbfk.easypanel.host/webhook/79d68e4b-0319-4d2c-a960-1ce575f76dc9", {
+      const resposta = await fetch("http://localhost:5678/webhook/04e84299-b10b-49c4-af9a-bfde312083a6", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
